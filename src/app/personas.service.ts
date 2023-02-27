@@ -8,11 +8,7 @@ import {Observable} from "rxjs";
 export class PersonasService{
 
   //atributos
-  personas : Persona[] = [
-   /* new Persona("Humberto", "POSADAS"),
-    new Persona("Jesus", "RODRIGUEZ"),
-    new Persona("Carmen", "GONZALEZ")*/
-  ];
+  personas : Persona[] = [];
 
 
   saludar : EventEmitter<number> = new EventEmitter<number>();  //atributo emmiter que va a permitir compartir informacion entre los componentes
@@ -31,7 +27,10 @@ export class PersonasService{
 //métodos
   agregarPersona(persona : Persona) : void{
     this.loggingService.enviaMensajeAConsola(
-      "Persona: " + persona.nombre + ' ' + persona.apellido + " creada!")
+      "Persona: " + persona.nombre + ' ' + persona.apellido + " creada!");
+    if(this.personas == null){
+      this.personas = [];
+    }
     this.personas.push(persona);
     this.dataService.guardarPersonas(this.personas);
   };
@@ -51,6 +50,16 @@ export class PersonasService{
 
   eliminarPersona(id : number){
     this.personas.splice(id,1);
+    this.dataService.eliminarPersona(id);
+    this.reasignarIndices();
+  }
+
+  reasignarIndices(){
+    //método que va a reasignar indices despues de haber eliimnado una persona para
+    //que se respete la posicion de cada elemento de la lista si agregamos personas
+    if (this.personas.length > 0){
+      this.dataService.guardarPersonas(this.personas);
+    }
   }
 
 }

@@ -34,4 +34,12 @@ export class DataService{
         error => console.log("Error al modificar persona!."))
   }
 
+  eliminarPersona(index : number) {
+    this.httpClient.delete("https://listado-personas-1614f-default-rtdb.europe-west1.firebasedatabase.app/datos/" + index + ".json")
+      .subscribe(
+        response=> console.log("resultado al eliminar: " + response),
+        error => console.log("Error al eliminar Persona: " + error)
+      )
+  }
+
 }
