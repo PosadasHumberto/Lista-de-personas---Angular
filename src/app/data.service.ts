@@ -25,4 +25,13 @@ export class DataService{
     return this.httpClient.get('https://listado-personas-1614f-default-rtdb.europe-west1.firebasedatabase.app/datos.json')
   }
 
+  modificarPersona(index : number, personaModif : Persona){
+    this.httpClient.put(
+      'https://listado-personas-1614f-default-rtdb.europe-west1.firebasedatabase.app/datos/' + index + ".json",
+      personaModif)
+      .subscribe(
+        response => console.log("Resultado modificacion: " + response),
+        error => console.log("Error al modificar persona!."))
+  }
+
 }

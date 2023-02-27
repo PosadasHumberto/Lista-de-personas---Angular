@@ -46,6 +46,7 @@ export class PersonasService{
 
   modificarPersona(persona: Persona, id : number){
     this.personas[id] = persona;
+    this.dataService.modificarPersona(id, persona);
   }
 
   eliminarPersona(id : number){
