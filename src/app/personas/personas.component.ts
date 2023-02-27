@@ -21,9 +21,16 @@ export class PersonasComponent {
   }
 
   ngOnInit(): void {
-    //introducimos en el arreglo personas de este componente el contenido del arreglo
-    //personas de la clase service PersonasService.
-    this.personas = this.personasService.personas;
+    this.personasService.obtenerPersonas()
+      .subscribe((personasDB : Persona[]) => {
+
+        //Llenamos el arreglo personas con el contenido de la BD
+        this.personas = personasDB;
+
+        //llenamos el arreglo personas del PersonasService tambien
+        this.personasService.personas = personasDB;
+
+      })
   }
 
   //métodos
