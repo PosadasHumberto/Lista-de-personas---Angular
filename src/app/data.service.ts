@@ -18,7 +18,8 @@ export class DataService{
 
   //métodos
   guardarPersonas(personas : Persona[]) : void {
-    this.httpClient.put(this.urlDB, personas)
+    const token = this.loginService.getIdToken();
+    this.httpClient.put(this.urlDB + 'datos.json?auth=' + token, personas)
       .subscribe(
         response => console.log("resultado guardar personas: " + response),
         error => console.log("Error al guardar Personas: " + error)
@@ -31,8 +32,9 @@ export class DataService{
   }
 
   modificarPersona(index : number, personaModif : Persona){
+    const token = this.loginService.getIdToken();
     this.httpClient.put(
-      this.urlDB + 'datos/' + index + ".json",
+      this.urlDB + 'datos/' + index + ".json?auth=" + token,
       personaModif)
       .subscribe(
         response => console.log("Resultado modificacion: " + response),
@@ -40,7 +42,8 @@ export class DataService{
   }
 
   eliminarPersona(index : number) {
-    this.httpClient.delete(this.urlDB + "datos/" + index + ".json")
+    const token = this.loginService.getIdToken();
+    this.httpClient.delete(this.urlDB + "datos/" + index + ".json?auth=" + token)
       .subscribe(
         response=> console.log("resultado al eliminar: " + response),
         error => console.log("Error al eliminar Persona: " + error)
