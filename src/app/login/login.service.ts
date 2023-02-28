@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 export class LoginService {
 
   //atributos
-  token : string;
+  token : string | null;
 
   //constructor
   constructor(
@@ -39,5 +39,16 @@ export class LoginService {
 
   getIdToken() {
     return this.token
+  }
+
+  isAutenticado() : boolean{
+    return this.token != null;  //verificamos si el token ya ha sido generado
+  }
+
+  logout() {
+    firebase.auth().signOut().then(() => {
+      this.token = null;
+      this.router.navigate(['login'])
+    }).catch(e => console.log("error logout: " + e))
   }
 }

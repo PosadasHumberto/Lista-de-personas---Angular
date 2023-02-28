@@ -1,4 +1,10 @@
-<!--Formulario de Personas-->
+<div *ngIf="!isAutenticado()" class="box centrado">
+  <a routerLink="/login">Login</a>
+</div>
+
+<div *ngIf="isAutenticado()" class="box centrado">
+  <a style="cursor: pointer" (click)="salir()">Logout</a>
+</div>
 <div class="box" id="heading">
 
     <h1>{{titulo}}</h1>
